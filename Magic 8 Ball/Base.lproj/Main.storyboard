@@ -17,30 +17,46 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ask me anything..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FuE-IR-18i">
-                                <rect key="frame" x="71" y="118" width="251" height="39"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¿Qué quieres saber?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FuE-IR-18i">
+                                <rect key="frame" x="44.666666666666657" y="178" width="304" height="39"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="32"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mui-Oc-zSQ">
-                                <rect key="frame" x="156" y="677" width="81" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uam-HN-uo7">
+                                <rect key="frame" x="96" y="318" width="200" height="216"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mui-Oc-zSQ">
+                                <rect key="frame" x="83.666666666666686" y="668" width="226" height="59"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Ask me"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Ask me anything" buttonSize="large">
+                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="24"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="magicButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="meC-CU-PMV"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uam-HN-uo7">
-                                <rect key="frame" x="96" y="362" width="200" height="128"/>
-                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Piensa en una pregunta y toca el botón para conocer la respuesta mágica ✨" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6yR-VU-6AU">
+                                <rect key="frame" x="20" y="245" width="353" height="43"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemMintColor"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="6yR-VU-6AU" secondAttribute="trailing" constant="20" id="4II-4y-WBl"/>
                             <constraint firstItem="uam-HN-uo7" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="200" id="9SU-Ty-zsS"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Mui-Oc-zSQ" secondAttribute="bottom" constant="57" id="D4E-bo-9qQ"/>
+                            <constraint firstItem="uam-HN-uo7" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="E5K-4g-Nye"/>
+                            <constraint firstItem="6yR-VU-6AU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="KC3-Ih-xOP"/>
+                            <constraint firstItem="6yR-VU-6AU" firstAttribute="top" secondItem="FuE-IR-18i" secondAttribute="bottom" constant="28" id="Mdh-6h-sWr"/>
+                            <constraint firstItem="FuE-IR-18i" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="NrB-N8-hvh"/>
+                            <constraint firstItem="6yR-VU-6AU" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="TF6-iF-HYH"/>
+                            <constraint firstItem="uam-HN-uo7" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="bML-Z4-kqG"/>
+                            <constraint firstItem="FuE-IR-18i" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="60" id="gs0-2y-kTH"/>
+                            <constraint firstItem="Mui-Oc-zSQ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="lo3-I6-otj"/>
                             <constraint firstItem="uam-HN-uo7" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="yaj-TW-xR9"/>
                         </constraints>
                     </view>
@@ -49,11 +65,12 @@
                         <outlet property="centralBall" destination="uam-HN-uo7" id="y7k-vc-J5w"/>
                         <outlet property="magicButton" destination="Mui-Oc-zSQ" id="Igb-Ll-7Cy"/>
                         <outlet property="magicTitle" destination="FuE-IR-18i" id="k2v-WD-DPT"/>
+                        <outlet property="subtitleLabel" destination="6yR-VU-6AU" id="7yj-R3-ndf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="66" y="-2"/>
+            <point key="canvasLocation" x="64.885496183206101" y="-2.1126760563380285"/>
         </scene>
     </scenes>
     <resources>
