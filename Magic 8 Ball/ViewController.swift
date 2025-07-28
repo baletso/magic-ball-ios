@@ -70,6 +70,20 @@ class ViewController: UIViewController {
         
         super.viewDidLoad()
             centralBall.image = UIImage(named: "ball1")
+        
+        let magicPurple = UIColor(hex: "#6A1B9A")
+
+        magicButton.setTitle("¡Muéstrame la magia!", for: .normal)
+        magicButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 22)
+        magicButton.backgroundColor = .white
+        magicButton.setTitleColor(magicPurple, for: .normal)
+        magicButton.layer.cornerRadius = 28
+        magicButton.layer.masksToBounds = true
+        magicButton.layer.shadowColor = UIColor.black.withAlphaComponent(0.2).cgColor
+        magicButton.layer.shadowOffset = CGSize(width: 0, height: 3)
+        magicButton.layer.shadowRadius = 8
+        magicButton.layer.shadowOpacity = 0.4
+        
         }
     
     private func addMagicStars(amount: Int) {
