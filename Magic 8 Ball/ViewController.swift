@@ -62,8 +62,29 @@ class ViewController: UIViewController {
         magicButton.layer.shadowOpacity = 0.4
         
         // --- Magic Ball in code ---
-
         let ballSize: CGFloat = 300
+        
+        // Sombra suave, elíptica y con blur bajo la bola mágica
+        let shadowWidth: CGFloat = ballSize * 0.64
+        let shadowHeight: CGFloat = ballSize * 0.12
+        let shadowY: CGFloat = view.bounds.height / 2 + 20 + ballSize / 2 - shadowHeight / 2 // Centrado justo bajo la bola
+
+        let shadowView = UIView(frame: CGRect(
+            x: (view.bounds.width - shadowWidth) / 2,
+            y: shadowY,
+            width: shadowWidth,
+            height: shadowHeight
+        ))
+        shadowView.backgroundColor = UIColor.black.withAlphaComponent(0.15)
+        shadowView.layer.cornerRadius = shadowHeight / 1.5
+        shadowView.layer.masksToBounds = false
+        shadowView.layer.shadowColor = UIColor.black.cgColor
+        shadowView.layer.shadowOffset = CGSize(width: 0, height: 0)
+        shadowView.layer.shadowOpacity = 0.1
+        shadowView.layer.shadowRadius = 80
+
+        view.addSubview(shadowView)
+        
         let ballView = UIView()
         ballView.backgroundColor = .clear
         ballView.translatesAutoresizingMaskIntoConstraints = false
@@ -74,7 +95,7 @@ class ViewController: UIViewController {
             ballView.widthAnchor.constraint(equalToConstant: ballSize),
             ballView.heightAnchor.constraint(equalToConstant: ballSize)
         ])
-
+        
         //1. Black outside ball
         let outerBall = UIView(frame: CGRect(x: 0, y: 0, width: ballSize, height: ballSize))
         outerBall.backgroundColor = UIColor(hex: "#323232")
@@ -82,7 +103,8 @@ class ViewController: UIViewController {
         outerBall.layer.masksToBounds = true
         ballView.addSubview(outerBall)
 
-        // 2. Gray ring
+        // 2. Magic Ring - Degradado mágico
+        // 2. Magic Ring - Violeta Glow
         let ringLayer = CAShapeLayer()
         let ringWidth: CGFloat = 16
         let ringRadius = ballSize * 0.37
@@ -94,9 +116,14 @@ class ViewController: UIViewController {
             clockwise: true
         )
         ringLayer.path = ringPath.cgPath
-        ringLayer.strokeColor = UIColor(white: 1, alpha: 0.45).cgColor
+        ringLayer.strokeColor = UIColor(hex: "#8B57F7").cgColor // Violeta mágico
         ringLayer.fillColor = UIColor.clear.cgColor
         ringLayer.lineWidth = ringWidth
+        // Agrega efecto glow al anillo:
+        ringLayer.shadowColor = UIColor(hex: "#B388FF").cgColor // Violeta claro
+        ringLayer.shadowRadius = 12
+        ringLayer.shadowOpacity = 0.7
+        ringLayer.shadowOffset = .zero
         ballView.layer.addSublayer(ringLayer)
 
         // 3. Inner circle
@@ -114,20 +141,16 @@ class ViewController: UIViewController {
         
         // 4. Centered triangle
         let triangleLayer = CAShapeLayer()
-
         let centerX = innerCircleSize / 2
         let centerY = innerCircleSize / 2
-
         let triangleSide: CGFloat = innerCircleSize * 0.7
         let triangleHeight: CGFloat = triangleSide * sqrt(3) / 2
-
         let centroidToBase = triangleHeight / 3
         let centroidToTop = triangleHeight * 2 / 3
 
-        // Vertices:
-        let p1 = CGPoint(x: centerX, y: centerY - centroidToTop) // Vértice superior
-        let p2 = CGPoint(x: centerX - triangleSide / 2, y: centerY + centroidToBase) // Base izquierda
-        let p3 = CGPoint(x: centerX + triangleSide / 2, y: centerY + centroidToBase) // Base derecha
+        let p1 = CGPoint(x: centerX, y: centerY - centroidToTop)
+        let p2 = CGPoint(x: centerX - triangleSide / 2, y: centerY + centroidToBase)
+        let p3 = CGPoint(x: centerX + triangleSide / 2, y: centerY + centroidToBase)
 
         let trianglePath = UIBezierPath()
         trianglePath.move(to: p1)
@@ -136,8 +159,20 @@ class ViewController: UIViewController {
         trianglePath.close()
 
         triangleLayer.path = trianglePath.cgPath
-        triangleLayer.fillColor = UIColor.white.cgColor
-        innerCircle.layer.addSublayer(triangleLayer)
+
+        // Gradiente para el triángulo
+        let triangleGradientLayer = CAGradientLayer()
+        triangleGradientLayer.frame = CGRect(x: 0, y: 0, width: innerCircleSize, height: innerCircleSize)
+        triangleGradientLayer.colors = [
+            UIColor(hex: "#7C3AED").cgColor,
+            UIColor(hex: "#38BDF8").cgColor
+        ]
+        triangleGradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
+        triangleGradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
+
+        // Aplica el gradiente sólo al triángulo
+        triangleGradientLayer.mask = triangleLayer
+        innerCircle.layer.addSublayer(triangleGradientLayer)
         
         // 5. Message triangle
         let message = "¡Sí, po!"
