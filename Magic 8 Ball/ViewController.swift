@@ -22,6 +22,18 @@ class ViewController: UIViewController {
 
     private var messageLabel: UILabel?
     
+    let chileanAnswers: [String] = [
+        "¡Sí po'!",
+        "No cacho",
+        "De más po'",
+        "No, nica",
+        "Ni fu ni fa",
+        "Nada es imposible...",
+        "Na', olvídalo",
+        "Prueba de nuevo",
+        "Has la hueá que querai"
+    ]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -143,7 +155,7 @@ class ViewController: UIViewController {
         let triangleLayer = CAShapeLayer()
         let centerX = innerCircleSize / 2
         let centerY = innerCircleSize / 2
-        let triangleSide: CGFloat = innerCircleSize * 0.7
+        let triangleSide: CGFloat = innerCircleSize * 0.8
         let triangleHeight: CGFloat = triangleSide * sqrt(3) / 2
         let centroidToBase = triangleHeight / 3
         let centroidToTop = triangleHeight * 2 / 3
@@ -178,18 +190,20 @@ class ViewController: UIViewController {
         let message = "¡Sí, po!"
         let label = UILabel()
         label.text = message
-        label.font = UIFont.boldSystemFont(ofSize: 22)
-        label.textColor = .black
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.textColor = .white
         label.textAlignment = .center
-        label.numberOfLines = 0
+        label.numberOfLines = 3
+        label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
         label.translatesAutoresizingMaskIntoConstraints = false
         innerCircle.addSubview(label)
         NSLayoutConstraint.activate([
             label.centerXAnchor.constraint(equalTo: innerCircle.centerXAnchor),
             label.centerYAnchor.constraint(equalTo: innerCircle.centerYAnchor, constant: 20),
             label.widthAnchor
-                .constraint(equalToConstant: triangleSide - 20),
+                .constraint(equalToConstant: triangleSide - 38),
             label.heightAnchor.constraint(lessThanOrEqualToConstant: triangleHeight - 18)
         ])
         self.messageLabel = label
@@ -217,8 +231,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func magicButtonPressed(_ sender: UIButton) {
-        // Aquí después podrás cambiar el texto, animar el triángulo, etc.
-        // Por ejemplo:
-        // self.messageLabel?.text = "Nuevo mensaje"
+        let randomMessage = chileanAnswers.randomElement() ?? "¡Sí, po!"
+        self.messageLabel?.text = randomMessage
     }
 }
