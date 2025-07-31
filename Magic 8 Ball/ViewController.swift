@@ -37,13 +37,11 @@ class ViewController: UIViewController {
     
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
-            // Llama aquí la misma lógica que usas al presionar el botón
             showRandomAnswerWithAnimation()
         }
     }
     
     private func showRandomAnswerWithAnimation() {
-        // Animación botón y triángulo, y cambio de mensaje (lo mismo que ya tienes en magicButtonPressed)
         UIView.animate(withDuration: 0.08, animations: {
             self.magicButton.transform = CGAffineTransform(scaleX: 0.92, y: 0.92)
         }) { _ in
@@ -64,7 +62,6 @@ class ViewController: UIViewController {
         let randomMessage = chileanAnswers.randomElement() ?? "¡Sí, po!"
         self.messageLabel?.text = randomMessage
         
-        // Haptic feedback si quieres que también vibre al sacudir
         let generator = UIImpactFeedbackGenerator(style: .medium)
         generator.impactOccurred()
     }
@@ -86,7 +83,7 @@ class ViewController: UIViewController {
         view.layer.insertSublayer(gradientLayer, at: 0)
         
         // Subtitle with bold highlighted phrase
-        let baseText = "Piensa una pregunta y toca el botón para conocer la respuesta mágica ✨"
+        let baseText = "Piensa tu pregunta, luego toca el botón o sacude el teléfono para ver la respuesta mágica ✨"
         let attributedText = NSMutableAttributedString(string: baseText)
         if let boldRange = baseText.range(of: "respuesta mágica ✨") {
             let nsRange = NSRange(boldRange, in: baseText)
@@ -108,10 +105,10 @@ class ViewController: UIViewController {
         magicButton.layer.shadowRadius = 8
         magicButton.layer.shadowOpacity = 0.4
         
-        // --- Magic Ball in code ---
+        // Magic Ball in code
         let ballSize: CGFloat = 300
         
-        // Sombra suave, elíptica y con blur bajo la bola mágica
+        // Eliptic shadow
         let shadowWidth: CGFloat = ballSize * 0.64
         let shadowHeight: CGFloat = ballSize * 0.12
         let shadowY: CGFloat = view.bounds.height / 2 + 20 + ballSize / 2 - shadowHeight / 2 // Centrado justo bajo la bola
@@ -122,6 +119,7 @@ class ViewController: UIViewController {
             width: shadowWidth,
             height: shadowHeight
         ))
+        
         shadowView.backgroundColor = UIColor.black.withAlphaComponent(0.15)
         shadowView.layer.cornerRadius = shadowHeight / 1.5
         shadowView.layer.masksToBounds = false
@@ -143,7 +141,7 @@ class ViewController: UIViewController {
             ballView.heightAnchor.constraint(equalToConstant: ballSize)
         ])
         
-        //1. Black outside ball
+        // 1. Black outside ball
         let outerBall = UIView(frame: CGRect(x: 0, y: 0, width: ballSize, height: ballSize))
         outerBall.backgroundColor = UIColor(hex: "#323232")
         outerBall.layer.cornerRadius = ballSize / 2
@@ -207,7 +205,7 @@ class ViewController: UIViewController {
 
         triangleLayer.path = trianglePath.cgPath
         
-        // Gradiente para el triángulo
+        // Triangle gradient
         let triangleGradientLayer = CAGradientLayer()
         triangleGradientLayer.frame = CGRect(x: 0, y: 0, width: innerCircleSize, height: innerCircleSize)
         triangleGradientLayer.colors = [
