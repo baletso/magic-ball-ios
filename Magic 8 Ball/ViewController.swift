@@ -18,9 +18,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var magicTitle: UILabel!
     @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var magicButton: UIButton!
-    
 
     private var messageLabel: UILabel?
+    private var triangleLayer: CAShapeLayer?
+    private var triangleGradientLayer: CAGradientLayer?
     
     let chileanAnswers: [String] = [
         "¡Sí po'!",
@@ -114,8 +115,7 @@ class ViewController: UIViewController {
         outerBall.layer.cornerRadius = ballSize / 2
         outerBall.layer.masksToBounds = true
         ballView.addSubview(outerBall)
-
-        // 2. Magic Ring - Degradado mágico
+        
         // 2. Magic Ring - Violeta Glow
         let ringLayer = CAShapeLayer()
         let ringWidth: CGFloat = 16
@@ -153,6 +153,7 @@ class ViewController: UIViewController {
         
         // 4. Centered triangle
         let triangleLayer = CAShapeLayer()
+        self.triangleLayer = triangleLayer
         let centerX = innerCircleSize / 2
         let centerY = innerCircleSize / 2
         let triangleSide: CGFloat = innerCircleSize * 0.8
@@ -171,7 +172,7 @@ class ViewController: UIViewController {
         trianglePath.close()
 
         triangleLayer.path = trianglePath.cgPath
-
+        
         // Gradiente para el triángulo
         let triangleGradientLayer = CAGradientLayer()
         triangleGradientLayer.frame = CGRect(x: 0, y: 0, width: innerCircleSize, height: innerCircleSize)
@@ -182,9 +183,26 @@ class ViewController: UIViewController {
         triangleGradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
         triangleGradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
 
-        // Aplica el gradiente sólo al triángulo
         triangleGradientLayer.mask = triangleLayer
         innerCircle.layer.addSublayer(triangleGradientLayer)
+        self.triangleGradientLayer = triangleGradientLayer
+        
+        triangleLayer.frame = CGRect(x: 0, y: 0, width: innerCircleSize, height: innerCircleSize)
+        triangleLayer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        triangleLayer.position = CGPoint(x: innerCircleSize / 2, y: innerCircleSize / 2)
+        triangleGradientLayer.frame = triangleLayer.frame
+        triangleGradientLayer.mask = triangleLayer
+        innerCircle.layer.addSublayer(triangleGradientLayer)
+        self.triangleLayer = triangleLayer
+        
+        if let triangle = self.triangleLayer {
+            let scale = CABasicAnimation(keyPath: "transform.scale")
+            scale.fromValue = 1.0
+            scale.toValue = 0.92
+            scale.duration = 0.08
+            scale.autoreverses = true
+            triangle.add(scale, forKey: "shrink")
+        }
         
         // 5. Message triangle
         let message = "¡Sí, po!"
@@ -231,6 +249,33 @@ class ViewController: UIViewController {
     }
     
     @IBAction func magicButtonPressed(_ sender: UIButton) {
+        // Animación shrink & rebote
+            UIView.animate(withDuration: 0.08, animations: {
+                sender.transform = CGAffineTransform(scaleX: 0.92, y: 0.92)
+            }) { _ in
+                UIView.animate(withDuration: 0.13, animations: {
+                    sender.transform = CGAffineTransform.identity
+                })
+            }
+        
+        if let triangle = self.triangleLayer {
+            let scale = CABasicAnimation(keyPath: "transform.scale")
+            scale.fromValue = 1.0
+            scale.toValue = 0.92
+            scale.duration = 0.08
+            scale.autoreverses = true
+            triangle.add(scale, forKey: "shrink")
+        }
+        
+        if let grad = self.triangleGradientLayer {
+            let fade = CABasicAnimation(keyPath: "opacity")
+            fade.fromValue = 1.0
+            fade.toValue = 0.75   // Puedes probar con menos si quieres menos “parpadeo”
+            fade.duration = 0.08
+            fade.autoreverses = true
+            grad.add(fade, forKey: "blink")
+        }
+        
         let randomMessage = chileanAnswers.randomElement() ?? "¡Sí, po!"
         self.messageLabel?.text = randomMessage
     }
