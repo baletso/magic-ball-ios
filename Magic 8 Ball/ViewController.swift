@@ -249,6 +249,12 @@ class ViewController: UIViewController {
     }
     
     @IBAction func magicButtonPressed(_ sender: UIButton) {
+        
+        // Haptic Feedback
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+            generator.prepare()
+            generator.impactOccurred()
+        
         // Animación shrink & rebote
             UIView.animate(withDuration: 0.08, animations: {
                 sender.transform = CGAffineTransform(scaleX: 0.92, y: 0.92)
