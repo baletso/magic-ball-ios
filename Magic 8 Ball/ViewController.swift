@@ -35,6 +35,40 @@ class ViewController: UIViewController {
         "Has la hueá que querai"
     ]
     
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            // Llama aquí la misma lógica que usas al presionar el botón
+            showRandomAnswerWithAnimation()
+        }
+    }
+    
+    private func showRandomAnswerWithAnimation() {
+        // Animación botón y triángulo, y cambio de mensaje (lo mismo que ya tienes en magicButtonPressed)
+        UIView.animate(withDuration: 0.08, animations: {
+            self.magicButton.transform = CGAffineTransform(scaleX: 0.92, y: 0.92)
+        }) { _ in
+            UIView.animate(withDuration: 0.13, animations: {
+                self.magicButton.transform = CGAffineTransform.identity
+            })
+        }
+        
+        if let triangle = self.triangleLayer {
+            let scale = CABasicAnimation(keyPath: "transform.scale")
+            scale.fromValue = 1.0
+            scale.toValue = 0.93
+            scale.duration = 0.08
+            scale.autoreverses = true
+            triangle.add(scale, forKey: "shrink")
+        }
+        
+        let randomMessage = chileanAnswers.randomElement() ?? "¡Sí, po!"
+        self.messageLabel?.text = randomMessage
+        
+        // Haptic feedback si quieres que también vibre al sacudir
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.impactOccurred()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -249,40 +283,6 @@ class ViewController: UIViewController {
     }
     
     @IBAction func magicButtonPressed(_ sender: UIButton) {
-        
-        // Haptic Feedback
-        let generator = UIImpactFeedbackGenerator(style: .medium)
-            generator.prepare()
-            generator.impactOccurred()
-        
-        // Animación shrink & rebote
-            UIView.animate(withDuration: 0.08, animations: {
-                sender.transform = CGAffineTransform(scaleX: 0.92, y: 0.92)
-            }) { _ in
-                UIView.animate(withDuration: 0.13, animations: {
-                    sender.transform = CGAffineTransform.identity
-                })
-            }
-        
-        if let triangle = self.triangleLayer {
-            let scale = CABasicAnimation(keyPath: "transform.scale")
-            scale.fromValue = 1.0
-            scale.toValue = 0.92
-            scale.duration = 0.08
-            scale.autoreverses = true
-            triangle.add(scale, forKey: "shrink")
-        }
-        
-        if let grad = self.triangleGradientLayer {
-            let fade = CABasicAnimation(keyPath: "opacity")
-            fade.fromValue = 1.0
-            fade.toValue = 0.75   // Puedes probar con menos si quieres menos “parpadeo”
-            fade.duration = 0.08
-            fade.autoreverses = true
-            grad.add(fade, forKey: "blink")
-        }
-        
-        let randomMessage = chileanAnswers.randomElement() ?? "¡Sí, po!"
-        self.messageLabel?.text = randomMessage
+        showRandomAnswerWithAnimation()
     }
 }
