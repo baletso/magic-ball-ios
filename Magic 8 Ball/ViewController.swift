@@ -29,10 +29,10 @@ class ViewController: UIViewController {
         "De más po'",
         "No, nica",
         "Ni fu ni fa",
-        "Nada es imposible...",
+        "Nada es imposible",
         "Na', olvídalo",
         "Prueba de nuevo",
-        "Has la hueá que querai"
+        "¡Voh' dale!"
     ]
     
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
@@ -91,6 +91,9 @@ class ViewController: UIViewController {
         }
         subtitleLabel.attributedText = attributedText
         subtitleLabel.numberOfLines = 0
+        subtitleLabel.adjustsFontSizeToFitWidth = true
+        subtitleLabel.minimumScaleFactor = 0.7
+        subtitleLabel.lineBreakMode = .byWordWrapping
         
         // Button
         let magicPurple = UIColor(hex: "#6A1B9A")
@@ -106,7 +109,8 @@ class ViewController: UIViewController {
         magicButton.layer.shadowOpacity = 0.4
         
         // Magic Ball in code
-        let ballSize: CGFloat = 300
+        let screenWidth = min(view.bounds.width, view.bounds.height)
+        let ballSize = screenWidth * 0.7
         
         // Eliptic shadow
         let shadowWidth: CGFloat = ballSize * 0.64
@@ -136,6 +140,7 @@ class ViewController: UIViewController {
         view.addSubview(ballView)
         NSLayoutConstraint.activate([
             ballView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            ballView.topAnchor.constraint(greaterThanOrEqualTo: subtitleLabel.bottomAnchor, constant: 16),
             ballView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 20),
             ballView.widthAnchor.constraint(equalToConstant: ballSize),
             ballView.heightAnchor.constraint(equalToConstant: ballSize)
@@ -160,11 +165,11 @@ class ViewController: UIViewController {
             clockwise: true
         )
         ringLayer.path = ringPath.cgPath
-        ringLayer.strokeColor = UIColor(hex: "#8B57F7").cgColor // Violeta mágico
+        ringLayer.strokeColor = UIColor(hex: "#8B57F7").cgColor // Magic Violet
         ringLayer.fillColor = UIColor.clear.cgColor
         ringLayer.lineWidth = ringWidth
-        // Agrega efecto glow al anillo:
-        ringLayer.shadowColor = UIColor(hex: "#B388FF").cgColor // Violeta claro
+        // Ring Glow effect:
+        ringLayer.shadowColor = UIColor(hex: "#B388FF").cgColor // Bright Violet
         ringLayer.shadowRadius = 12
         ringLayer.shadowOpacity = 0.7
         ringLayer.shadowOffset = .zero
@@ -244,14 +249,14 @@ class ViewController: UIViewController {
         label.textColor = .white
         label.textAlignment = .center
         label.numberOfLines = 3
-        label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.5
+        label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         innerCircle.addSubview(label)
         NSLayoutConstraint.activate([
             label.centerXAnchor.constraint(equalTo: innerCircle.centerXAnchor),
-            label.centerYAnchor.constraint(equalTo: innerCircle.centerYAnchor, constant: 20),
+            label.centerYAnchor.constraint(equalTo: innerCircle.centerYAnchor, constant: 4),
             label.widthAnchor
                 .constraint(equalToConstant: triangleSide - 38),
             label.heightAnchor.constraint(lessThanOrEqualToConstant: triangleHeight - 18)

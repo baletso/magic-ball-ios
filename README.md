@@ -1,18 +1,37 @@
-![App Brewery Banner](Documentation/AppBreweryBanner.png)
+# Magic 8 Ball Chilena 🎱✨
 
-# Magic 8 Ball
+¡Te doy la bienvenida a la Magic 8 Ball en versión chilena!  
+Hazle una pregunta al universo y descubre la respuesta más honesta y chilenizada... ¿Te atreves? 😎
 
-## Our Goal
+---
 
-The objective of this challenge is to apply the skills you learned in the Dicee tutorial and get you making an app with functionality all by yourself. There’s no new concepts here. But you’re flyin’ solo this time! Most of the programming skills are gained in the challenges rather than the tutorials. It’s when you’re using your new-found programming skills to bend the app to your will that you’re truly levelling up as a developer.
+## Características
 
-## What you will create
+- 🎨 Diseño propio con bola mágica, gradientes y animaciones.
+- 🇨🇱 Respuestas “en chileno”, llenas de sabor local.
+- 🖐️ Feedback visual y háptico al interactuar.
+- 🎲 Sacude el teléfono o toca el botón para recibir una respuesta mágica.
+- 🪄 Interfaz optimizada para distintos tamaños de pantalla.
+- 🚀 Listo para ser publicado en el App Store.
 
-We’re going to make a Magic 8 Ball app. You can ask the app to make all your hard decisions! With this app in your pocket, you’ll always have an answer to life’s many conundrums!
+---
 
+## Cómo funciona
 
+1. **Piensa tu pregunta**.
+2. **Toca el botón** o **sacude el teléfono**.
+3. **Lee la respuesta mágica** y… ¡acepta tu destino!
 
->This is a companion project to The App Brewery's Complete App Development Bootcamp, check out the full course at [www.appbrewery.co](https://www.appbrewery.co/)
+---
 
-![End Banner](Documentation/readme-end-banner.png)
+## Créditos
 
+Desarrollado y diseñado por [Bárbara Atelier](https://github.com/baletso)  
+Proyecto personal de aprendizaje iOS & Swift.  
+Basado en el desafío de la Magic 8 Ball, adaptado con cariño y creatividad chilena.
+
+---
+
+## Licencia
+
+MIT © 2025 Bárbara Atelier
